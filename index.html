@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cigarette Butthole</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            background-color: black;
+            font-family: 'VT323', monospace;
+        }
+        .container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 1s ease-out;
+        }
+        .gif-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            z-index: 10;
+        }
+        .main-cig {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .butt-png {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) scale(7);
+            width: 10%;
+            z-index: -1;
+            height: auto;
+        }
+        .text-container {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            gap: 2vw;
+            opacity: 0;
+            margin-top: -8vw;
+        }
+        .pixel-letter {
+            font-size: 10vw;
+            font-weight: 400;
+            color: white;
+            text-shadow: 
+                0 0 0.4vw #fff,
+                0 0 0.8vw #fff,
+                0 0 1.2vw #ff8c00,
+                0 0 1.6vw #ff8c00,
+                0 0 2.0vw #ff8c00;
+            opacity: 0;
+            transform: translateY(-120%);
+        }
+        .falling-cig {
+            position: absolute;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        .hotbar {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            width: 100%;
+            max-width: 600px;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+            margin-top: 20px;
+        }
+        .hotbar-item {
+            padding: 10px 20px;
+            background-color: #ff8c00;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.8vw;
+            font-weight: 400;
+            margin: 0 5px;
+        }
+        .hotbar-item:hover {
+            background-color: #ffaa33;
+        }
+        .quote-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+            z-index: 99;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+        .quote-box {
+            background-color: white;
+            padding: 15px;
+            border: 3px solid black;
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .quote-text {
+            font-size: 1.5vw;
+            font-weight: 400;
+            color: black;
+            margin-right: 15px;
+        }
+        .quote-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .small-quote-box {
+            background-color: white;
+            padding: 15px;
+            border: 3px solid black;
+            width: calc(50% - 5px);
+            font-size: 1.3vw;
+            font-weight: 400;
+            color: black;
+        }
+        .small-quotes-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .meme-gallery {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto 0;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+        .meme-image {
+            max-width: calc(33.33% - 20px);
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .meme-image:hover {
+            transform: scale(1.05);
+        }
+        @keyframes fallIn {
+            0% { transform: translateY(-120%); opacity: 0; }
+            60% { transform: translateY(10%); opacity: 1; }
+            80% { transform: translateY(-5%); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .scroll-text {
+            font-size: 4vw;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+            z-index: 1000;
+        }
+        .scroll-arrow {
+            font-size: 6vw;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .gif-container {
+                max-width: 90%;
+            }
+            .pixel-letter {
+                font-size: 14vw;
+            }
+            .hotbar {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 90%;
+            }
+            .hotbar-item {
+                font-size: 4.5vw;
+                margin: 5px;
+                padding: 8px 16px;
+            }
+            .quote-container {
+                width: 90%;
+            }
+            .quote-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            .quote-text {
+                font-size: 3.5vw;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .small-quote-box {
+                font-size: 3vw;
+            }
+            .small-quotes-container {
+                flex-direction: column;
+            }
+            .small-quote-box {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .meme-gallery {
+                padding: 10px;
+            }
+            .meme-image {
+                max-width: calc(50% - 10px);
+            }
+            .scroll-text {
+                font-size: 6vw;
+            }
+            .scroll-arrow {
+                font-size: 8vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="first-screen">
+        <div class="gif-container">
+            <img src="cig1.gif" alt="Main Cigarette GIF" class="main-cig">
+            <img src="butt1.png" alt="Cigarette Butt" class="butt-png">
+        </div>
+        <div class="text-container">
+            <div class="pixel-letter">$</div>
+            <div class="pixel-letter">C</div>
+            <div class="pixel-letter">B</div>
+        </div>
+    </div>
+    <div class="container" id="second-screen" style="display: none; opacity: 0;">
+        <div class="hotbar" id="hotbar">
+            <a href="https://x.com" target="_blank" class="hotbar-item">Twitter</a>
+            <a href="https://t.me/CigaretteButtonSol" target="_blank" class="hotbar-item">Telegram</a>
+            <a href="https://dexscreener.com/solana/avffugkxym5quwhkkn8xueqje1admqvrdcy21yibvdo2" target="_blank" class="hotbar-item">Dexscreener</a>
+        </div>
+        <div class="quote-container">
+            <div class="quote-box">
+                <p class="quote-text">"We all need a Cig Every Once in a While... and Where There's a Cig, You'll Find a Butthole." - Donald Trump</p>
+                <img src="cb.png" alt="CB" class="quote-image">
+            </div>
+            <div class="small-quotes-container">
+                <div class="small-quote-box">
+                    <p>According to Research, there are over 1 Billion Active Smokers Today.</p>
+                </div>
+                <div class="small-quote-box">
+                    <p>There are also <span id="population-count">Loading...</span> Buttholes in the World Today. You do the Math.</p>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-text" id="scroll-text">
+            <span class="scroll-arrow">&#9660;</span>
+            Scroll for the Revolution
+            <span class="scroll-arrow">&#9660;</span>
+        </div>
+        <div class="meme-gallery" id="meme-gallery">
+            <img src="meme1.png" alt="Meme 1" class="meme-image">
+            <img src="meme2.png" alt="Meme 2" class="meme-image">
+            <img src="meme3.png" alt="Meme 3" class="meme-image">
+            <img src="meme4.png" alt="Meme 4" class="meme-image">
+            <img src="meme5.png" alt="Meme 5" class="meme-image">
+            <img src="meme6.png" alt="Meme 6" class="meme-image">
+            <img src="meme7.png" alt="Meme 7" class="meme-image">
+            <img src="meme8.png" alt="Meme 8" class="meme-image">
+            <img src="meme9.png" alt="Meme 9" class="meme-image">
+            <img src="meme10.png" alt="Meme 10" class="meme-image">
+            <img src="meme11.png" alt="Meme 11" class="meme-image">
+        </div>
+    </div>
+    
+    <script>
+    function animateLetters() {
+        const letterElements = document.querySelectorAll('.pixel-letter');
+        letterElements.forEach((el, index) => {
+            setTimeout(() => {
+                el.style.animation = `fallIn 1s ease-out forwards`;
+            }, index * 1000);
+        });
+    }
+
+    // Ensure font is loaded before starting animation
+    document.fonts.ready.then(() => {
+        document.querySelector('.text-container').style.opacity = '1';
+        setTimeout(animateLetters, 500);
+    });
+
+    let cigInterval;
+    let isPageVisible = true;
+
+    function createFallingCig() {
+        if (!isPageVisible) return;
+        
+        const container = document.createElement('div');
+        container.className = 'falling-cig gif-container';
+        container.style.position = 'absolute';
+        container.style.left = `${Math.random() * 100}vw`;
+        container.style.top = '-50px';
+        container.style.width = `${Math.random() * 30 + 20}px`;
+
+        const cig = document.createElement('img');
+        cig.src = 'cig1.gif';
+        cig.alt = 'Falling Cigarette';
+        cig.className = 'main-cig';
+
+        const butt = document.createElement('img');
+        butt.src = 'butt1.png';
+        butt.alt = 'Cigarette Butt';
+        butt.className = 'butt-png';
+
+        container.appendChild(cig);
+        container.appendChild(butt);
+        document.body.appendChild(container);
+
+        let position = -50;
+        const interval = setInterval(() => {
+            if (!isPageVisible) {
+                clearInterval(interval);
+                container.remove();
+                return;
+            }
+            position += 1;
+            container.style.top = `${position}px`;
+            if (position > window.innerHeight) {
+                clearInterval(interval);
+                container.remove();
+            }
+        }, 20);
+    }
+
+    function transitionToSecondScreen() {
+        const firstScreen = document.getElementById('first-screen');
+        const secondScreen = document.getElementById('second-screen');
+        const hotbar = document.getElementById('hotbar');
+        const quoteContainer = document.querySelector('.quote-container');
+        const memeGallery = document.getElementById('meme-gallery');
+        const scrollText = document.getElementById('scroll-text');
+
+        // Fade out first screen
+        firstScreen.style.opacity = '0';
+        
+        setTimeout(() => {
+            firstScreen.style.display = 'none';
+            
+            // Show second screen and its elements
+            secondScreen.style.display = 'flex';
+            hotbar.style.display = 'flex';
+            quoteContainer.style.display = 'flex';
+            memeGallery.style.display = 'flex';
+            scrollText.style.display = 'block';
+
+            setTimeout(() => {
+                secondScreen.style.opacity = '1';
+                hotbar.style.opacity = '1';
+                quoteContainer.style.opacity = '1';
+                memeGallery.style.opacity = '1';
+                scrollText.style.opacity = '1';
+            }, 50);
+
+            // Start creating falling cigarettes more frequently
+            cigInterval = setInterval(createFallingCig, 200);
+        }, 1000); // Wait for fade-out to complete
+    }
+
+    // Initial falling cigarettes
+    cigInterval = setInterval(createFallingCig, 500);
+
+    // Transition to second screen after 7 seconds (adjust as needed)
+    setTimeout(transitionToSecondScreen, 7000);
+
+    // Handle page visibility
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            isPageVisible = false;
+            clearInterval(cigInterval);
+        } else {
+            isPageVisible = true;
+            cigInterval = setInterval(createFallingCig, 200);
+        }
+    });
+
+    // World Population API and counter
+    function fetchWorldPopulation() {
+        fetch('https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=2020:2021')
+            .then(response => response.json())
+            .then(data => {
+const latestPopulation = data[1][0].value;
+                const year = data[1][0].date;
+                updatePopulationCounter(latestPopulation, year);
+            })
+            .catch(error => {
+                console.error('Error fetching world population:', error);
+                document.getElementById('population-count').textContent = 'Error loading data';
+            });
+    }
+
+    function updatePopulationCounter(initialPopulation, year) {
+        const counterElement = document.getElementById('population-count');
+        const startDate = new Date(year, 0, 1); // January 1st of the given year
+        const growthRate = 1.05; // 1.05% annual growth rate
+
+        function getCurrentPopulation() {
+            const now = new Date();
+            const yearDiff = (now - startDate) / (1000 * 60 * 60 * 24 * 365.25);
+            return Math.round(initialPopulation * Math.pow(1 + growthRate/100, yearDiff));
+        }
+
+        function incrementPopulation() {
+            const currentPopulation = getCurrentPopulation();
+            counterElement.textContent = currentPopulation.toLocaleString();
+        }
+
+        setInterval(incrementPopulation, 1000);  // Update every second
+    }
+
+    // Fetch initial population when the page loads
+    fetchWorldPopulation();
+
+    function adjustButtPosition() {
+        const cigContainers = document.querySelectorAll('.gif-container');
+        cigContainers.forEach(container => {
+            const cig = container.querySelector('.main-cig');
+            const butt = container.querySelector('.butt-png');
+            const cigWidth = cig.offsetWidth;
+            const buttWidth = cigWidth * 0.1; // 10% of cig width
+            butt.style.width = `${buttWidth}px`;
+        });
+    }
+
+    window.addEventListener('load', adjustButtPosition);
+    window.addEventListener('resize', adjustButtPosition);
+
+    // Lazy loading for meme images
+    document.addEventListener('DOMContentLoaded', function() {
+        const memeImages = document.querySelectorAll('.meme-image');
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.getAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        }, options);
+
+        memeImages.forEach(img => {
+            img.setAttribute('data-src', img.src);
+            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Placeholder
+            observer.observe(img);
+        });
+    });
+    </script>
+</body>
+</html>
