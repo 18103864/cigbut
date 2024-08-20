@@ -14,6 +14,41 @@
             background-color: black;
             font-family: 'VT323', monospace;
         }
+        .popup {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .popup-content h2 {
+            margin-top: 0;
+        }
+
+        #proceed-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #proceed-button:hover {
+            background-color: #45a049;
+        }
+
         .container {
             position: relative;
             min-height: 100vh;
@@ -183,6 +218,20 @@
             font-size: 6vw;
             vertical-align: middle;
         }
+        footer {
+            margin-top: 2rem;
+        }
+        .socials-list li {
+            display: inline-block;
+            margin: auto;
+        }
+        .socials {
+            margin-right: 0.2rem;
+        }
+        .email {
+            color: white;
+            text-align: center;
+        }
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.5; }
@@ -243,6 +292,14 @@
     </style>
 </head>
 <body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Chads allowed only! </h2>
+            <p>Please confirm you are not a Jeet.</p>
+            <button id="proceed-button">I AM NOT A JEET</button>
+        </div>
+    </div>
+    
     <div class="container" id="first-screen">
         <div class="gif-container">
             <img src="cig1.gif" alt="Main Cigarette GIF" class="main-cig">
@@ -259,10 +316,13 @@
             <a href="https://x.com" target="_blank" class="hotbar-item">Twitter</a>
             <a href="https://t.me/CigaretteButtonSol" target="_blank" class="hotbar-item">Telegram</a>
             <a href="https://dexscreener.com/solana/avffugkxym5quwhkkn8xueqje1admqvrdcy21yibvdo2" target="_blank" class="hotbar-item">Dexscreener</a>
+            <a href="https://t.me/cigbuttmemes" class="hotbar-item">Memes</a>
+            <a href="" class="hotbar-item">NFTs</a>
         </div>
         <div class="quote-container">
             <div class="quote-box">
-                <p class="quote-text">"We all need a Cig Every Once in a While... and Where There's a Cig, You'll Find a Butthole." - Donald Trump</p>
+                <p class="quote-text">Cigarette Butt is the funniest community driven meme coin on the Solana blockchain! Literally just a cigarette in a butt!
+                </p>
                 <img src="cb.png" alt="CB" class="quote-image">
             </div>
             <div class="small-quotes-container">
@@ -276,11 +336,11 @@
         </div>
         <div class="scroll-text" id="scroll-text">
             <span class="scroll-arrow">&#9660;</span>
-            Scroll for the Revolution
+            Join the Revolution
             <span class="scroll-arrow">&#9660;</span>
         </div>
         <div class="meme-gallery" id="meme-gallery">
-            <img src="meme1.png" alt="Meme 1" class="meme-image">
+            <!-- <img src="meme1.png" alt="Meme 1" class="meme-image">
             <img src="meme2.png" alt="Meme 2" class="meme-image">
             <img src="meme3.png" alt="Meme 3" class="meme-image">
             <img src="meme4.png" alt="Meme 4" class="meme-image">
@@ -290,196 +350,220 @@
             <img src="meme8.png" alt="Meme 8" class="meme-image">
             <img src="meme9.png" alt="Meme 9" class="meme-image">
             <img src="meme10.png" alt="Meme 10" class="meme-image">
-            <img src="meme11.png" alt="Meme 11" class="meme-image">
+            <img src="meme11.png" alt="Meme 11" class="meme-image"> -->
         </div>
+        <footer>
+            <ul class="socials-list">
+                <li> <a href="" class="socials"><img src="x.png" alt=""></a>  </li>
+                <li> <a href="" class="socials"><img src="telegram.png" alt=""></a>  </li>
+                <li> <a href="" class="socials"><img src="dexscreener.png" alt=""></a>  </li>
+                <li> <a href="" class="socials"><img  src="dextools.png" alt=""></a>  </li>
+                <li> <a href="" class="socials"><img  src="solana.png" alt=""></a>  </li>
+            </ul>
+            <p class="email">📧 cigbuttcoin@gmail.com</p>
+        </footer>
     </div>
     
     <script>
-    function animateLetters() {
-        const letterElements = document.querySelectorAll('.pixel-letter');
-        letterElements.forEach((el, index) => {
-            setTimeout(() => {
-                el.style.animation = `fallIn 1s ease-out forwards`;
-            }, index * 1000);
-        });
-    }
-
-    // Ensure font is loaded before starting animation
-    document.fonts.ready.then(() => {
-        document.querySelector('.text-container').style.opacity = '1';
-        setTimeout(animateLetters, 500);
-    });
-
-    let cigInterval;
-    let isPageVisible = true;
-
-    function createFallingCig() {
-        if (!isPageVisible) return;
         
-        const container = document.createElement('div');
-        container.className = 'falling-cig gif-container';
-        container.style.position = 'absolute';
-        container.style.left = `${Math.random() * 100}vw`;
-        container.style.top = '-50px';
-        container.style.width = `${Math.random() * 30 + 20}px`;
-
-        const cig = document.createElement('img');
-        cig.src = 'cig1.gif';
-        cig.alt = 'Falling Cigarette';
-        cig.className = 'main-cig';
-
-        const butt = document.createElement('img');
-        butt.src = 'butt1.png';
-        butt.alt = 'Cigarette Butt';
-        butt.className = 'butt-png';
-
-        container.appendChild(cig);
-        container.appendChild(butt);
-        document.body.appendChild(container);
-
-        let position = -50;
-        const interval = setInterval(() => {
-            if (!isPageVisible) {
-                clearInterval(interval);
-                container.remove();
-                return;
+        function initializePage() {
+            function animateLetters() {
+                const letterElements = document.querySelectorAll('.pixel-letter');
+                letterElements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.animation = `fallIn 1s ease-out forwards`;
+                    }, index * 1000);
+                });
             }
-            position += 1;
-            container.style.top = `${position}px`;
-            if (position > window.innerHeight) {
-                clearInterval(interval);
-                container.remove();
-            }
-        }, 20);
-    }
 
-    function transitionToSecondScreen() {
-        const firstScreen = document.getElementById('first-screen');
-        const secondScreen = document.getElementById('second-screen');
-        const hotbar = document.getElementById('hotbar');
-        const quoteContainer = document.querySelector('.quote-container');
-        const memeGallery = document.getElementById('meme-gallery');
-        const scrollText = document.getElementById('scroll-text');
-
-        // Fade out first screen
-        firstScreen.style.opacity = '0';
-        
-        setTimeout(() => {
-            firstScreen.style.display = 'none';
-            
-            // Show second screen and its elements
-            secondScreen.style.display = 'flex';
-            hotbar.style.display = 'flex';
-            quoteContainer.style.display = 'flex';
-            memeGallery.style.display = 'flex';
-            scrollText.style.display = 'block';
-
-            setTimeout(() => {
-                secondScreen.style.opacity = '1';
-                hotbar.style.opacity = '1';
-                quoteContainer.style.opacity = '1';
-                memeGallery.style.opacity = '1';
-                scrollText.style.opacity = '1';
-            }, 50);
-
-            // Start creating falling cigarettes more frequently
-            cigInterval = setInterval(createFallingCig, 200);
-        }, 1000); // Wait for fade-out to complete
-    }
-
-    // Initial falling cigarettes
-    cigInterval = setInterval(createFallingCig, 500);
-
-    // Transition to second screen after 7 seconds (adjust as needed)
-    setTimeout(transitionToSecondScreen, 7000);
-
-    // Handle page visibility
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            isPageVisible = false;
-            clearInterval(cigInterval);
-        } else {
-            isPageVisible = true;
-            cigInterval = setInterval(createFallingCig, 200);
-        }
-    });
-
-    // World Population API and counter
-    function fetchWorldPopulation() {
-        fetch('https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=2020:2021')
-            .then(response => response.json())
-            .then(data => {
-const latestPopulation = data[1][0].value;
-                const year = data[1][0].date;
-                updatePopulationCounter(latestPopulation, year);
-            })
-            .catch(error => {
-                console.error('Error fetching world population:', error);
-                document.getElementById('population-count').textContent = 'Error loading data';
+            // Ensure font is loaded before starting animation
+            document.fonts.ready.then(() => {
+                document.querySelector('.text-container').style.opacity = '1';
+                setTimeout(animateLetters, 500);
             });
-    }
 
-    function updatePopulationCounter(initialPopulation, year) {
-        const counterElement = document.getElementById('population-count');
-        const startDate = new Date(year, 0, 1); // January 1st of the given year
-        const growthRate = 1.05; // 1.05% annual growth rate
+            let cigInterval;
+            let isPageVisible = true;
 
-        function getCurrentPopulation() {
-            const now = new Date();
-            const yearDiff = (now - startDate) / (1000 * 60 * 60 * 24 * 365.25);
-            return Math.round(initialPopulation * Math.pow(1 + growthRate/100, yearDiff));
-        }
+            function createFallingCig() {
+                if (!isPageVisible) return;
 
-        function incrementPopulation() {
-            const currentPopulation = getCurrentPopulation();
-            counterElement.textContent = currentPopulation.toLocaleString();
-        }
+                const container = document.createElement('div');
+                container.className = 'falling-cig gif-container';
+                container.style.position = 'absolute';
+                container.style.left = `${Math.random() * 100}vw`;
+                container.style.top = '-50px';
+                container.style.width = `${Math.random() * 30 + 20}px`;
 
-        setInterval(incrementPopulation, 1000);  // Update every second
-    }
+                const cig = document.createElement('img');
+                cig.src = 'cig1.gif';
+                cig.alt = 'Falling Cigarette';
+                cig.className = 'main-cig';
 
-    // Fetch initial population when the page loads
-    fetchWorldPopulation();
+                const butt = document.createElement('img');
+                butt.src = 'butt1.png';
+                butt.alt = 'Cigarette Butt';
+                butt.className = 'butt-png';
 
-    function adjustButtPosition() {
-        const cigContainers = document.querySelectorAll('.gif-container');
-        cigContainers.forEach(container => {
-            const cig = container.querySelector('.main-cig');
-            const butt = container.querySelector('.butt-png');
-            const cigWidth = cig.offsetWidth;
-            const buttWidth = cigWidth * 0.1; // 10% of cig width
-            butt.style.width = `${buttWidth}px`;
-        });
-    }
+                container.appendChild(cig);
+                container.appendChild(butt);
+                document.body.appendChild(container);
 
-    window.addEventListener('load', adjustButtPosition);
-    window.addEventListener('resize', adjustButtPosition);
+                let position = -50;
+                const interval = setInterval(() => {
+                    if (!isPageVisible) {
+                        clearInterval(interval);
+                        container.remove();
+                        return;
+                    }
+                    position += 1;
+                    container.style.top = `${position}px`;
+                    if (position > window.innerHeight) {
+                        clearInterval(interval);
+                        container.remove();
+                    }
+                }, 20);
+            }
 
-    // Lazy loading for meme images
-    document.addEventListener('DOMContentLoaded', function() {
-        const memeImages = document.querySelectorAll('.meme-image');
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+            function transitionToSecondScreen() {
+                const firstScreen = document.getElementById('first-screen');
+                const secondScreen = document.getElementById('second-screen');
+                const hotbar = document.getElementById('hotbar');
+                const quoteContainer = document.querySelector('.quote-container');
+                const memeGallery = document.getElementById('meme-gallery');
+                const scrollText = document.getElementById('scroll-text');
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.getAttribute('data-src');
-                    observer.unobserve(img);
+                // Fade out first screen
+                firstScreen.style.opacity = '0';
+
+                setTimeout(() => {
+                    firstScreen.style.display = 'none';
+
+                    // Show second screen and its elements
+                    secondScreen.style.display = 'flex';
+                    hotbar.style.display = 'flex';
+                    quoteContainer.style.display = 'flex';
+                    memeGallery.style.display = 'flex';
+                    scrollText.style.display = 'block';
+
+                    setTimeout(() => {
+                        secondScreen.style.opacity = '1';
+                        hotbar.style.opacity = '1';
+                        quoteContainer.style.opacity = '1';
+                        memeGallery.style.opacity = '1';
+                        scrollText.style.opacity = '1';
+                    }, 50);
+
+                    // Start creating falling cigarettes more frequently
+                    cigInterval = setInterval(createFallingCig, 200);
+                }, 1000); // Wait for fade-out to complete
+            }
+
+            // Initial falling cigarettes
+            cigInterval = setInterval(createFallingCig, 500);
+
+            // Transition to second screen after 7 seconds (adjust as needed)
+            setTimeout(transitionToSecondScreen, 7000);
+
+            // Handle page visibility
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) {
+                    isPageVisible = false;
+                    clearInterval(cigInterval);
+                } else {
+                    isPageVisible = true;
+                    cigInterval = setInterval(createFallingCig, 200);
                 }
             });
-        }, options);
 
-        memeImages.forEach(img => {
-            img.setAttribute('data-src', img.src);
-            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Placeholder
-            observer.observe(img);
+            // World Population API and counter
+            function fetchWorldPopulation() {
+                fetch('https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=2020:2021')
+                    .then(response => response.json())
+                    .then(data => {
+                        const latestPopulation = data[1][0].value;
+                        const year = data[1][0].date;
+                        updatePopulationCounter(latestPopulation, year);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching world population:', error);
+                        document.getElementById('population-count').textContent = 'Error loading data';
+                    });
+            }
+
+            function updatePopulationCounter(initialPopulation, year) {
+                const counterElement = document.getElementById('population-count');
+                const startDate = new Date(year, 0, 1); // January 1st of the given year
+                const growthRate = 1.05; // 1.05% annual growth rate
+
+                function getCurrentPopulation() {
+                    const now = new Date();
+                    const yearDiff = (now - startDate) / (1000 * 60 * 60 * 24 * 365.25);
+                    return Math.round(initialPopulation * Math.pow(1 + growthRate / 100, yearDiff));
+                }
+
+                function incrementPopulation() {
+                    const currentPopulation = getCurrentPopulation();
+                    counterElement.textContent = currentPopulation.toLocaleString();
+                }
+
+                setInterval(incrementPopulation, 1000);  // Update every second
+            }
+
+            // Fetch initial population when the page loads
+            fetchWorldPopulation();
+
+            function adjustButtPosition() {
+                const cigContainers = document.querySelectorAll('.gif-container');
+                cigContainers.forEach(container => {
+                    const cig = container.querySelector('.main-cig');
+                    const butt = container.querySelector('.butt-png');
+                    const cigWidth = cig.offsetWidth;
+                    const buttWidth = cigWidth * 0.1; // 10% of cig width
+                    butt.style.width = `${buttWidth}px`;
+                });
+            }
+
+            window.addEventListener('load', adjustButtPosition);
+            window.addEventListener('resize', adjustButtPosition);
+
+            // Lazy loading for meme images
+            document.addEventListener('DOMContentLoaded', function () {
+                const memeImages = document.querySelectorAll('.meme-image');
+                const options = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.getAttribute('data-src');
+                            observer.unobserve(img);
+                        }
+                    });
+                }, options);
+
+                memeImages.forEach(img => {
+                    img.setAttribute('data-src', img.src);
+                    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Placeholder
+                    observer.observe(img);
+                });
+            });
+        }
+
+        // Show the popup and wait for the user to click "Proceed"
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('popup').style.display = 'flex';
+
+            document.getElementById('proceed-button').addEventListener('click', function () {
+                document.getElementById('popup').style.display = 'none';
+                initializePage(); // Start the main content and scripts
+            });
         });
-    });
+
     </script>
 </body>
 </html>
