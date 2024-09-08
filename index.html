@@ -239,6 +239,19 @@
             text-align: center;
             word-break: break-all;
         }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.5; }
@@ -327,6 +340,13 @@
             <a href="https://dexscreener.com/solana/avffugkxym5quwhkkn8xueqje1admqvrdcy21yibvdo2" target="_blank" class="hotbar-item">Dexscreener</a>
             <a href="https://t.me/cigbuttmemes" class="hotbar-item">Memes</a>
             <a href="https://launchmynft.io/collections/4JrXKk29CbtdTRtkcikGBs7Ej8eDVGvS4ubiyMJVBNHJ/uMnujBYVZTsNZbWckCo9" class="hotbar-item" target="_blank">NFTs</a>
+            <a href="#" id="staking-link" class="hotbar-item">Staking</a>
+        </div>
+        <div id="new-popup" class="popup">
+            <div class="popup-content">
+                <span id="close-popup" class="close">&times;</span>
+                <h2>Coming Soon</h2>
+            </div>
         </div>
         <div class="quote-container">
             <div class="quote-box">
@@ -368,6 +388,7 @@
                 <li> <a href="https://t.me/CigaretteButtonSol" class="socials"><img src="telegram.png" target="_blank" alt=""></a>  </li>
                 <li> <a href="https://dexscreener.com/solana/avffugkxym5quwhkkn8xueqje1admqvrdcy21yibvdo2" class="socials" target="_blank"><img src="dexscreener.png" alt=""></a>  </li>
                 <li> <a href="https://www.dextools.io/app/en/solana/pair-explorer/AVFfUgkXyM5QUwHkkN8XUeqJE1aDMqVRDCy21YibvDo2?t=1724167321666" target="_blank" class="socials"><img  src="dextools.png" alt=""></a>  </li>
+                <li> <a href="https://t.me/bonkbot_bot?start=ref_cigbutt" class="socials" target="_blank"><img  src="bonkbot.png" alt=""></a>  </li>
                 <li> <a href="" class="socials"><img  src="solana.png" alt=""></a>  </li>
             </ul>
             <p class="email">📧 cigbuttcoin@gmail.com</p>
@@ -565,14 +586,38 @@
         }
 
         // Show the popup and wait for the user to click "Proceed"
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('popup').style.display = 'flex';
+        document.addEventListener('DOMContentLoaded', function() {
+    // Handle initial popup
+    document.getElementById('popup').style.display = 'flex';
 
-            document.getElementById('proceed-button').addEventListener('click', function () {
-                document.getElementById('popup').style.display = 'none';
-                initializePage(); // Start the main content and scripts
-            });
-        });
+    document.getElementById('proceed-button').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+        initializePage(); // Start the main content and scripts
+    });
+
+    // Handle new popup for staking
+    var newPopup = document.getElementById('new-popup');
+    var closePopup = document.getElementById('close-popup');
+    var stakingLink = document.getElementById('staking-link');
+
+    // Ensure new-popup is hidden initially
+    newPopup.style.display = 'none';
+
+    stakingLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        newPopup.style.display = 'flex'; // Show the pop-up
+    });
+
+    closePopup.addEventListener('click', function() {
+        newPopup.style.display = 'none'; // Hide the pop-up
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === newPopup) {
+            newPopup.style.display = 'none'; // Hide the pop-up if user clicks outside of it
+        }
+    });
+});
 
     </script>
 </body>
